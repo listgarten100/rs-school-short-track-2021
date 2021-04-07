@@ -20,8 +20,41 @@
  * }
  *
  */
-function getDNSStats(/* domains */) {
-  throw new Error('Not implemented');
+function getDNSStats(domains) {
+  const res = {};
+
+  domains.forEach((elem) => {
+    const strDomain = (elem.match(/[a-z]+(\.[a-z]{2,3})$/))[1];
+    const strName = `${strDomain}.${(elem.match(/([a-z]+)\.[a-z]{2,3}$/))[1]}`;
+
+    res[strDomain] = 0;
+    res[strName] = 0;
+
+    let strNameSite;
+
+    if (/^[a-z]+\.[a-z]+\.[a-z]{2,3}$/.test(elem)) {
+      strNameSite = `${strName}.${(elem.match(/^([a-z]+)\.[a-z]+\.[a-z]{2,3}$/))[1]}`;
+      res[strNameSite] = 0;
+    }
+  });
+
+  domains.forEach((elem) => {
+    const strDomain = (elem.match(/[a-z]+(\.[a-z]{2,3})$/))[1];
+    const strName = `${strDomain}.${(elem.match(/([a-z]+)\.[a-z]{2,3}$/))[1]}`;
+    let strNameSite;
+    if (/^[a-z]+\.[a-z]+\.[a-z]{2,3}$/.test(elem)) {
+      strNameSite = `${strName}.${(elem.match(/^([a-z]+)\.[a-z]+\.[a-z]{2,3}$/))[1]}`;
+    }
+    if (/[a-z]+\.([a-z]{2,3})/.test(elem)) {
+      res[strDomain] += 1;
+      res[strName] += 1;
+    }
+    if (/^[a-z]+\.[a-z]+\.[a-z]{2,3}$/.test(elem)) {
+      res[strNameSite] += 1;
+    }
+  });
+
+  return res;
 }
 
 module.exports = getDNSStats;
