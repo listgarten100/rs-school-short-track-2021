@@ -21,8 +21,121 @@
  *  [1, 1, 1]
  * ]
  */
-function minesweeper(/* matrix */) {
-  throw new Error('Not implemented');
+function minesweeper(matrix) {
+  const arr = [];
+  let countRepeted = 0;
+
+  for (let i = 0; i < matrix.length; i++) {
+    for (let j = 0; j < matrix[i].length; j++) {
+      countRepeted++;
+      let countMines = 0;
+      if (matrix[i][j + 1] === true) {
+        countMines++;
+
+        if (arr.length === countRepeted) {
+          arr.splice(arr.length - 1, 1);
+          arr.push(countMines);
+        } else {
+          arr.push(countMines);
+        }
+      }
+      if (matrix[i][j - 1] === true) {
+        countMines++;
+        if (arr.length === countRepeted) {
+          arr.splice(arr.length - 1, 1);
+          arr.push(countMines);
+        } else {
+          arr.push(countMines);
+        }
+      }
+
+      if (matrix[i + 1]) {
+        if (matrix[i + 1][j] === true) {
+          countMines++;
+          if (arr.length === countRepeted) {
+            arr.splice(arr.length - 1, 1);
+            arr.push(countMines);
+          } else {
+            arr.push(countMines);
+          }
+        }
+      }
+
+      if (matrix[i + 1] && matrix[i + 1][j - 1]) {
+        if (matrix[i + 1][j - 1] === true) {
+          countMines++;
+          if (arr.length === countRepeted) {
+            arr.splice(arr.length - 1, 1);
+            arr.push(countMines);
+          } else {
+            arr.push(countMines);
+          }
+        }
+      }
+
+      if (matrix[i + 1] && matrix[i + 1][j + 1]) {
+        if (matrix[i + 1][j + 1] === true) {
+          countMines++;
+          if (arr.length === countRepeted) {
+            arr.splice(arr.length - 1, 1);
+            arr.push(countMines);
+          } else {
+            arr.push(countMines);
+          }
+        }
+      }
+
+      if (matrix[i - 1]) {
+        if (matrix[i - 1][j] === true) {
+          countMines++;
+          if (arr.length === countRepeted) {
+            arr.splice(arr.length - 1, 1);
+            arr.push(countMines);
+          } else {
+            arr.push(countMines);
+          }
+        }
+      }
+
+      if (matrix[i - 1] && matrix[i - 1][j + 1]) {
+        if (matrix[i - 1][j + 1] === true) {
+          countMines++;
+          if (arr.length === countRepeted) {
+            arr.splice(arr.length - 1, 1);
+            arr.push(countMines);
+          } else {
+            arr.push(countMines);
+          }
+        }
+      }
+
+      if (matrix[i - 1] && matrix[i - 1][j - 1]) {
+        if (matrix[i - 1][j - 1] === true) {
+          countMines++;
+          if (arr.length === countRepeted) {
+            arr.splice(arr.length - 1, 1);
+            arr.push(countMines);
+          } else {
+            arr.push(countMines);
+          }
+        }
+      }
+    }
+  }
+
+  if (arr.length === 0) {
+    for (let i = 0; i < countRepeted; i++) {
+      arr.push(0);
+    }
+  }
+
+  const size = matrix[0].length;
+  const res = [];
+  for (let i = 0; i < Math.ceil(arr.length / size); i++) {
+    res[i] = arr.slice((i * size), (i * size) + size);
+  }
+
+  return res;
 }
 
 module.exports = minesweeper;
