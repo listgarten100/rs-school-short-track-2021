@@ -17,16 +17,15 @@
  * }
  */
 
-// function removeKFromList(l, k) {
-// const res = [];
+function removeKFromList(l, k) {
+  const arr = l;
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] === k) {
+      delete arr[i];
+    }
+  }
 
-// for (let i = 0; i < l.length; i++) {
-//   if (l[i] !== k) {
-//     res.push(l[i]);
-//   }
-// }
+  return arr;
+}
 
-// return res;
-// }
-
-// module.exports = removeKFromList;
+module.exports = removeKFromList;
